@@ -5,21 +5,66 @@
 ###############################################################################
 
 AddToMenu RootMenu "Root Menu" Title
-+ "&Terminal"         Exec exec x-terminal-emulator || xterm
-+ "&Clock"            Exec exec xclock
++ "&Terminal"         Exec exec sakura || xterm
++ "&Firefox"	      Exec exec firefox
++ "&Vlc"	      Exec exec vlc
++ "&Emacs"	      Exec exec emacs
++ ""		      Nop
++ "&Clock"            Exec exec xclock 
++ "&Xcalc"	      Exec exec xcalc
++ ""		      Nop
++ "&Apps"	      Popup Applications
 + ""                  Nop
 + "&Window Ops"       Popup Window-Ops
++ "&Sound Volume"     Popup VolumeMenu
 + "&X11 Session"      Popup X11-Session
+
+AddToMenu Applications "Apps" Title
++ "&Gimp"	      Exec exec gimp
++ "&Xchat"	      Exec exec xchat
++ "&Nautilus"	      Exec exec nautilus
++ "&Terminal"         Exec exec x-terminal-emulator || xterm
++ "&Virtualbox"	      Exec exec virtualbox
++ "virl-&Manager"     Exec exec virt-manager
++ ""		      Nop
++ "&OpenRa"	      Exec exec openra.ra
+
+AddToMenu Send-to  "send to Desktop" Title
++ "Move to 1"  MoveToPage 0 0
++ "Move to 2"  MoveToPage 0 1
++ "Move to 3"  MoveToPage 0 2
++ "Move to 4"  MoveToPage 0 3
++ "Move to 5"  MoveToPage 0 4
++ "Move to 6"  MoveToPage 0 5
+
 
 AddToMenu Window-Ops
 + "&Move"             Move
 + "&Resize"           Resize
 + "&Stick"            Stick
++ "stay on TO&P"      Layer 0 6
++ "stays on &Default" Layer 0 4
++ ""		      Nop
++ "sen&T to"	      Popup Send-to
 + ""                  Nop
 + "&Close"            Close
 + "&Destroy"          Destroy
 
+AddToMenu VolumeMenu   "Volume Control" Title
++       "Volume 100%%"          exec amixer -c 0 set Master 100%
++       "Volume  90%%"          exec amixer -c 0 set Master 9%
++       "Volume  80%%"          exec amixer -c 0 set Master 80%
++       "Volume  70%%"          exec amixer -c 0 set Master 70%
++       "Volume  60%%"          exec amixer -c 0 set Master 60%
++       "Volume  50%%"          exec amixer -c 0 set Master 50%
++       "Volume  40%%"          exec amixer -c 0 set Master 40%
++       "Volume  30%%"          exec amixer -c 0 set Master 30%
++       "Volume  20%%"          exec amixer -c 0 set Master 20%
++       "Volume  10%%"          exec amixer -c 0 set Master 10%
++       "Volume   0%%"          exec amixer -c 0 set Master 0%
+
 AddToMenu X11-Session
+# + "&ScreenSaver"      Exec exec xscreensaver-demo
 + "Re&fresh Screen"   Refresh
 + "&Restart WM"       Restart
 + ""                  Nop
@@ -50,16 +95,18 @@ Key K A CM            Close
 Key M A CM            Menu RootMenu Nop
 Key R A CM            Restart
 Key T A CM            Exec exec x-terminal-emulator || xterm
+Key Super_L AT    N   Menu RootMenu Nop
 
 # Simple default mouse bindings for the root window:
 #
-Mouse 1	R A           Menu RootMenu Nop
+Mouse 1 R A           Menu RootMenu Nop
 Mouse 2	R A           Menu Window-Ops Nop
 Mouse 3	R A           WindowList
 
 # ... and for the title bar buttons:
 #
-Mouse 0	1 A           Menu Window-Ops Close
+Mouse 0	1 A           Menu Window-Ops 
+Mouse 1 6 A	      Close
 Mouse 0	2 A           Maximize
 Mouse 0	4 A           Iconify
 
@@ -82,6 +129,8 @@ DestroyFunc StartFunction
 AddToFunc StartFunction
 + I Module FvwmCommandS
 + I Module FvwmPager
+## + I Module FvwmAudio
+## + I Module FvwmDocker
 + I Read mystyle quiet
 + I TestRc (-1) Read $./mystyle quiet
 + I TestRc (-1) Exec exec xsetroot -solid \#202020
@@ -124,6 +173,9 @@ AddToFunc Resize-or-Raise
 + I Raise
 + M Resize
 
+DestroyFunc Move-or-Lower
+| "DoubleClick" Lower
+
 ###############################################################################
 #                                                                             #
 # Global Behavior Commands                                                    #
@@ -142,21 +194,21 @@ EdgeScroll 0 0
 ###############################################################################
 
 DefaultColors \#000000 \#c0c0c0
-DefaultFont xft:Sans:Normal:size=10:antialias=True
+DefaultFont xft:Sans:Normal:size=12:antialias=True
 Emulate Mwm
 MenuStyle * Background \#c0c0c0
 MenuStyle * Foreground \#000000
 MenuStyle * Mwm
 Style * BackColor \#c0c0c0
-Style * BorderWidth 6
+Style * BorderWidth 0
 Style * ClickToFocus
 Style * DecorateTransient
 Style * EdgeMoveDelay 250
 Style * EdgeMoveResistance 10
-Style * Font xft:Sans:Bold:size=10:antialias=True
+Style * Font xft:Sans:Bold:size=12:antialias=True
 Style * ForeColor \#606060
 Style * FPLenient
-Style * HandleWidth 6
+Style * HandleWidth 1
 Style * HilightBack \#c0c0c0
 Style * HilightFore \#000000
 Style * HintOverride
@@ -168,14 +220,19 @@ Style * MwmDecor
 Style * MwmFunctions
 Style * TileCascadePlacement
 Style * !UsePPosition
-TitleStyle Centered Height 20
 
-Style Fvwm* BorderWidth 2
+Style Fvwm* BorderWidth 0
 Style Fvwm* CirculateSkip
 Style Fvwm* CirculateSkipIcon
 Style Fvwm* Sticky
 Style Fvwm* !Title
 Style Fvwm* WindowListSkip
+BorderStyle Inactive -- HiddenHandles NoInset
+BorderStyle Active -- HiddenHandles NoInset
+TitleStyle Centered Height 20 
+TitleStyle ActiveUp -- Flat
+TitleStyle ActiveDown -- Flat
+TitleStyle Inactive -- Flat
 
 ###############################################################################
 #                                                                             #
@@ -184,12 +241,25 @@ Style Fvwm* WindowListSkip
 ###############################################################################
 
 Style FvwmPager BackColor #000000
-Style FvwmPager BorderWidth 1
+Style FvwmPager BorderWidth 0
 Style FvwmPager FixedPosition
 Style FvwmPager FixedSize
 Style FvwmPager HandleWidth 1
 Style FvwmPager HilightBack #000000
-Style FvwmPager StaysOnBottom
+Style FvwmPager StaysOnTop
+Style FvwmPager ParentalRelativity
+
+ButtonStyle 6 Inactive Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
+ButtonStyle 2 Inactive Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
+ButtonStyle 4 Inactive Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
+ButtonStyle 8 Inactive Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
+ButtonStyle 1 Inactive Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
+
+ButtonStyle 6 active Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
+ButtonStyle 2 active Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
+ButtonStyle 4 active Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
+ButtonStyle 8 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
+ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 
 *FvwmPager: Back #666666
 *FvwmPager: Fore #444444
@@ -201,6 +271,26 @@ Style FvwmPager StaysOnBottom
 *FvwmPager: BalloonFont xft:Sans:Normal:size=8:antialias=True
 *FvwmPager: BalloonFore #000000
 *FvwmPager: BalloonYOffset +2
-*FvwmPager: Geometry 35x150+0+0
-*FvwmPager: Hilight #111111
+# *FvwmPager: BalloonColorset * 8
+*FvwmPager: Geometry 35x150+0+200
+# *FvwmPager: HilightColorset * 42
 *FvwmPager: SmallFont 5x8
+# *FvwmPager: Colorset * 41
+# *FvwmPager: WindowColorsets 9 $[cs-panel-winactive]
+# Colorset 3 fg white, bg #1883f1
+# Colorset 8 fg white, bg white, hi white, RootTransparent buffer, Tint white 0
+# Colorset 9 fg white, bg white, hi white, RootTransparent buffer, Tint white 30
+
+# Colorset 41 RootTransparent buffer, fg white, bg average, Tint cyan 15, bgTint cyan 15 # tint is optional
+# Colorset 42 RootTransparent buffer, fg white, bg average, Tint blut 15, bgTint blut 15 # tint is optional 
+
+# BorderStyle Inactive -- Flat
+# BorderStyle Active  -- Flat
+
+# *RightPanel: Geometry 120x$[vp.height]-0-0
+
+AddtoFunc StartFunction
++ I Exec exec fcitx -d
+## + I Exec exec pasystray
+#
+#
