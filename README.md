@@ -1,3 +1,8 @@
+Simple FVWM config style
+
+* update simple fvvwmDesktop style.
+* Add sound volume adjust.
+
 FVWM-min
 ========
 
