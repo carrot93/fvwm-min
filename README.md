@@ -1,8 +1,10 @@
 Simple FVWM config style (update)
 
-* update simple fvwmDesktop style.
+* Update simple fvwmDesktop style.
 * Add sound volume adjust.
-* fix window maximize.
+* Fix window maximize.
+* Add setenv.
+* Add config sync with github to be mordern desktop.
 
 FVWM-min
 ========

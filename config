@@ -4,6 +4,12 @@
 #                                                                             #
 ###############################################################################
 
+SetEnv LC_ALL "zh_CN.utf-8"
+SetEnv XMODIFIERS "@im=fcitx"
+SetEnv GTK_IM_MODULE "fcitx"
+SetEnv GTK3_IM_MODULE "fcitx"
+SetEnv QT_IM_MODULE "fcitx"
+
 AddToMenu RootMenu "Root Menu" Title
 + "&Terminal"         Exec exec sakura || xterm
 + "&Firefox"	      Exec exec firefox
@@ -68,6 +74,9 @@ AddToMenu X11-Session
 + "Re&fresh Screen"   Refresh
 + "&Restart WM"       Restart
 + ""                  Nop
++ "&Push to github"   Exec exec 
++ "Pu&ll from github" Exec exec
++ ""		      Nop
 + "Exit to xterm"     Restart xterm
 + "Exit WM"           Quit
 
@@ -134,7 +143,7 @@ AddToFunc StartFunction
 ## + I Module FvwmDocker
 + I Read mystyle quiet
 + I TestRc (-1) Read $./mystyle quiet
-+ I TestRc (-1) Exec exec xsetroot -solid \#202020
++ I TestRc (-1) Exec exec xsetroot -solid black
 
 DestroyFunc InitFunction
 AddToFunc InitFunction
@@ -300,5 +309,4 @@ ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 AddtoFunc StartFunction
 + I Exec exec fcitx -d
 ## + I Exec exec pasystray
-#
 #
