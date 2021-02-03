@@ -1,7 +1,8 @@
-Simple FVWM config style
+Simple FVWM config style (update)
 
 * update simple fvwmDesktop style.
 * Add sound volume adjust.
+* fix window maximize.
 
 FVWM-min
 ========

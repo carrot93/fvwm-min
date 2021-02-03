@@ -109,11 +109,12 @@ Mouse 0	1 A           Menu Window-Ops
 Mouse 1 6 A	      Close
 Mouse 0	2 A           Maximize
 Mouse 0	4 A           Iconify
+Mouse 1 T A	      Raise-or-Maximize
 
 # ... and other parts of the windows / borders / icons:
 #
 Mouse 1	FS A          Resize-or-Raise
-Mouse 1	T A           Move-or-Raise
+# Mouse 1	T A           Move-or-Raise
 Mouse 1	I A           Move-or-Iconify
 Mouse 2	I A           Iconify
 Mouse 2	FST A         Menu Window-Ops Nop
@@ -157,6 +158,10 @@ AddToFunc SessionRestartFunction
 #                                                                             #
 ###############################################################################
 
+DestroyFunc MaximizeOrMove
+AddToFunc MaximizeOrMove
++ D Maximize
+
 DestroyFunc Move-or-Raise
 AddToFunc Move-or-Raise
 + I Raise
@@ -173,8 +178,11 @@ AddToFunc Resize-or-Raise
 + I Raise
 + M Resize
 
-DestroyFunc Move-or-Lower
-| "DoubleClick" Lower
+DestroyFunc Raise-or-Maximize
+AddToFunc Raise-or-Maximize
++ I Raise
++ M Move
++ D Maximize
 
 ###############################################################################
 #                                                                             #
