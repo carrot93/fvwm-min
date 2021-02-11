@@ -9,6 +9,7 @@ SetEnv XMODIFIERS "@im=fcitx"
 SetEnv GTK_IM_MODULE "fcitx"
 SetEnv GTK3_IM_MODULE "fcitx"
 SetEnv QT_IM_MODULE "fcitx"
+SetEnv LC_ALL "C"
 
 AddToMenu RootMenu "Root Menu" Title
 + "&Terminal"         Exec exec sakura || xterm
@@ -16,7 +17,8 @@ AddToMenu RootMenu "Root Menu" Title
 + "&Vlc"	      Exec exec vlc
 + "&Emacs"	      Exec exec emacs
 + ""		      Nop
-+ "&Clock"            Exec exec xclock 
++ "&Clock"            Exec exec xclock -digital -twentyfour -update 60 -geometry 50x30+0+360 -brief -bg black -fg white
+
 + "&Xcalc"	      Exec exec xcalc
 + ""		      Nop
 + "&Apps"	      Popup Applications
