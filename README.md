@@ -11,6 +11,7 @@ FVWM-min
 
 Features
 --------
+* Simple, mini, support dual-screen.
 
 "FVWM-min" is a _minimal_ standard configuration for FVWM that provides a sane
 and functional set of window manager defaults. FVWM-min is designed for clean
