@@ -33,6 +33,7 @@ AddToMenu Applications "Apps" Title
 + "&Virtualbox"	      Exec exec virtualbox
 + "virl-&Manager"     Exec exec virt-manager
 + "&Blender"	      Exec exec blender
++ "&Qittorrent"	      Exec exec qbittorrent
 + ""		      Nop
 + "&OpenRa"	      Exec exec openra.ra
 
@@ -71,7 +72,7 @@ AddToMenu VolumeMenu   "Volume Control" Title
 +       "Volume   0%%"          exec amixer -c 0 set Master 0%
 
 AddToMenu X11-Session
-# + "&ScreenSaver"      Exec exec xscreensaver-demo
++ "Loc&kScreen"     Exec exec slock
 + "Re&fresh Screen"   Refresh
 + "&Restart WM"       Restart
 + ""                  Nop
@@ -206,6 +207,7 @@ ClickTime 750
 DeskTopSize 1x6
 EdgeResistance 250
 EdgeScroll 0 0
+# EdgeThickness 1
 
 ###############################################################################
 #                                                                             #
@@ -219,6 +221,7 @@ Emulate Mwm
 MenuStyle * Background \#c0c0c0
 MenuStyle * Foreground \#000000
 MenuStyle * Mwm
+HideGeometryWindow Never
 Style * BackColor \#c0c0c0
 Style * BorderWidth 0
 Style * ClickToFocus
@@ -240,6 +243,7 @@ Style * MwmDecor
 Style * MwmFunctions
 Style * TileCascadePlacement
 Style * !UsePPosition
+Style "*clock" NoTitle, Nohandles, Sticky, WindowListSkip
 
 Style Fvwm* BorderWidth 0
 Style Fvwm* CirculateSkip
@@ -281,8 +285,8 @@ ButtonStyle 4 active Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
 ButtonStyle 8 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 
-*FvwmPager: Back #666666
-*FvwmPager: Fore #444444
+*FvwmPager: Back #555555
+*FvwmPager: Fore #999999
 *FvwmPager: Font none
 *FvwmPager: Balloons All
 *FvwmPager: BalloonBack #ffffff
