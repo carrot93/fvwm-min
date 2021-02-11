@@ -32,6 +32,7 @@ AddToMenu Applications "Apps" Title
 + "&Terminal"         Exec exec x-terminal-emulator || xterm
 + "&Virtualbox"	      Exec exec virtualbox
 + "virl-&Manager"     Exec exec virt-manager
++ "&Blender"	      Exec exec blender
 + ""		      Nop
 + "&OpenRa"	      Exec exec openra.ra
 
@@ -74,8 +75,8 @@ AddToMenu X11-Session
 + "Re&fresh Screen"   Refresh
 + "&Restart WM"       Restart
 + ""                  Nop
-+ "&Push to github"   Exec exec 
-+ "Pu&ll from github" Exec exec
++ "&Push to github"   FvwmCommand -c | cd ~/testLab/fvwm-min/ | ls
++ "Pu&ll from github" FvwmCommand -mi3 | emacs | gedit
 + ""		      Nop
 + "Exit to xterm"     Restart xterm
 + "Exit WM"           Quit
@@ -143,15 +144,17 @@ AddToFunc StartFunction
 ## + I Module FvwmDocker
 + I Read mystyle quiet
 + I TestRc (-1) Read $./mystyle quiet
-+ I TestRc (-1) Exec exec xsetroot -solid black
++ I TestRc (-1) Exec exec fvwm-root --color-limit black
 
 DestroyFunc InitFunction
 AddToFunc InitFunction
 + I Nop
++ I Exec exec fvwm-root --color-limit black
 
 DestroyFunc RestartFunction
 AddToFunc RestartFunction
 + I Nop
++ I Exec exec fvwm-root --color-limit black
 
 DestroyFunc SessionInitFunction
 AddToFunc SessionInitFunction
@@ -299,7 +302,7 @@ ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 # Colorset 9 fg white, bg white, hi white, RootTransparent buffer, Tint white 30
 
 # Colorset 41 RootTransparent buffer, fg white, bg average, Tint cyan 15, bgTint cyan 15 # tint is optional
-# Colorset 42 RootTransparent buffer, fg white, bg average, Tint blut 15, bgTint blut 15 # tint is optional 
+Colorset 42 RootTransparent buffer, fg white, bg average, Tint blut 15, bgTint blut 15 # tint is optional 
 
 # BorderStyle Inactive -- Flat
 # BorderStyle Active  -- Flat
