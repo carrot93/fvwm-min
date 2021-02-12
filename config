@@ -62,7 +62,7 @@ AddToMenu Window-Ops
 
 AddToMenu VolumeMenu   "Volume Control" Title
 +       "Volume 100%%"          exec amixer -c 0 set Master 100%
-+       "Volume  90%%"          exec amixer -c 0 set Master 9%
++       "Volume  90%%"          exec amixer -c 0 set Master 90%
 +       "Volume  80%%"          exec amixer -c 0 set Master 80%
 +       "Volume  70%%"          exec amixer -c 0 set Master 70%
 +       "Volume  60%%"          exec amixer -c 0 set Master 60%
