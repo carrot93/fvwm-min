@@ -9,11 +9,12 @@ SetEnv XMODIFIERS "@im=fcitx"
 SetEnv GTK_IM_MODULE "fcitx"
 SetEnv GTK3_IM_MODULE "fcitx"
 SetEnv QT_IM_MODULE "fcitx"
-SetEnv LC_ALL "C"
+# SetEnv LC_ALL "C"
 
 AddToMenu RootMenu "Root Menu" Title
-+ "&Terminal"         Exec exec sakura || xterm
++ "&Terminal"         Exec exec urxvtc || xterm
 + "&Firefox"	      Exec exec firefox
++ "&Chrome"	      Exec exec chromium-browser
 + "&Vlc"	      Exec exec vlc
 + "&Emacs"	      Exec exec emacs
 + ""		      Nop
@@ -22,13 +23,19 @@ AddToMenu RootMenu "Root Menu" Title
 + "&Xcalc"	      Exec exec xcalc
 + ""		      Nop
 + "&Apps"	      Popup Applications
++ "Too&ls"	      Popup Tools
 + ""                  Nop
 + "&Window Ops"       Popup Window-Ops
 + "&Sound Volume"     Popup VolumeMenu
 + "&X11 Session"      Popup X11-Session
 
+AddToMenu Tools "Tools" Title
++ "&Gummi"	      Exec exec gummi
+
+
 AddToMenu Applications "Apps" Title
 + "&Gimp"	      Exec exec gimp
++ "G&edit"            Exec exec gedit
 + "&Xchat"	      Exec exec xchat
 + "&Nautilus"	      Exec exec nautilus
 + "&Terminal"         Exec exec x-terminal-emulator || xterm
@@ -36,6 +43,10 @@ AddToMenu Applications "Apps" Title
 + "virl-&Manager"     Exec exec virt-manager
 + "&Blender"	      Exec exec blender
 + "&Qittorrent"	      Exec exec qbittorrent
++ "Transmi&ssion"     Exec exec transmission-gtk
++ "&freeCad"	      Exec exec freecad
++ "fi&lezilla"        Exec exec filezilla
++ "libreoffi&ce"      Exec exec libreoffice
 + ""		      Nop
 + "&OpenRa"	      Exec exec openra.ra
 
@@ -74,12 +85,13 @@ AddToMenu VolumeMenu   "Volume Control" Title
 +       "Volume   0%%"          exec amixer -c 0 set Master 0%
 
 AddToMenu X11-Session
-+ "Loc&kScreen"     Exec exec slock
++ "Loc&kScreen"     Exec exec xscreensaver-command -lock
 + "Re&fresh Screen"   Refresh
 + "&Restart WM"       Restart
 + ""                  Nop
 + "&Push to github"   FvwmCommand -c | cd ~/testLab/fvwm-min/ | ls
 + "Pu&ll from github" FvwmCommand -mi3 | emacs | gedit
++ "Dual Screen"	      Exec exec arandr
 + ""		      Nop
 + "Exit to xterm"     Restart xterm
 + "Exit WM"           Quit
@@ -210,6 +222,8 @@ DeskTopSize 1x6
 EdgeResistance 250
 EdgeScroll 0 0
 # EdgeThickness 1
+# remove the lines on window movement.
+OpaqueMoveSize -1
 
 ###############################################################################
 #                                                                             #
@@ -223,7 +237,7 @@ Emulate Mwm
 MenuStyle * Background \#c0c0c0
 MenuStyle * Foreground \#000000
 MenuStyle * Mwm
-HideGeometryWindow Never
+HideGeometryWindow True
 Style * BackColor \#c0c0c0
 Style * BorderWidth 0
 Style * ClickToFocus
@@ -255,7 +269,7 @@ Style Fvwm* !Title
 Style Fvwm* WindowListSkip
 BorderStyle Inactive -- HiddenHandles NoInset
 BorderStyle Active -- HiddenHandles NoInset
-TitleStyle Centered Height 20 
+TitleStyle LeftJustified Height 22
 TitleStyle ActiveUp -- Flat
 TitleStyle ActiveDown -- Flat
 TitleStyle Inactive -- Flat
@@ -274,6 +288,8 @@ Style FvwmPager HandleWidth 1
 Style FvwmPager HilightBack #000000
 Style FvwmPager StaysOnTop
 Style FvwmPager ParentalRelativity
+
+
 
 ButtonStyle 6 Inactive Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
 ButtonStyle 2 Inactive Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
@@ -298,7 +314,7 @@ ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 *FvwmPager: BalloonFore #000000
 *FvwmPager: BalloonYOffset +2
 # *FvwmPager: BalloonColorset * 8
-*FvwmPager: Geometry 35x150+0+200
+*FvwmPager: Geometry 35x150+0+200@1
 # *FvwmPager: HilightColorset * 42
 *FvwmPager: SmallFont 5x8
 # *FvwmPager: Colorset * 41
@@ -309,13 +325,38 @@ ButtonStyle 1 active Vector 4 44x44@3 44x45@3 45x45@3 44x44@3 -- Flat
 
 # Colorset 41 RootTransparent buffer, fg white, bg average, Tint cyan 15, bgTint cyan 15 # tint is optional
 Colorset 42 RootTransparent buffer, fg white, bg average, Tint blut 15, bgTint blut 15 # tint is optional 
+Colorset 43 RootTransparent buffer, fg black, bg average, Tint blut 15, bgTint blut 15 # tint is optional 
+Colorset 51 fg SteelBlue4, bg SteelBlue4, hi, sh SteelBlue4
+Colorset 52 fg SkyBlue4, bg SkyBlue4, hi, sh LightSkyBlue4
 
-# BorderStyle Inactive -- Flat
-# BorderStyle Active  -- Flat
+BorderStyle Inactive Colorset 51 -- Flat
+BorderStyle Active  Colorset 52 -- Flat
+# BorderStyle ActiveDown  Colorset 51 -- Flat
+# TitleStyle Inactive Colorset 51 --Flat
+# TitleStyle Active Colorset 52 --Flat
 
 # *RightPanel: Geometry 120x$[vp.height]-0-0
+#
+#
+# BorderStyle Active Solid SteelBlue4 -- NoInset HiddenHandles
+# BorderStyle Inactive Solid #11236b -- NoInset HiddenHandles
+
+# TitleStyle
+TitleStyle ActiveUp Colorset 52 -- flat
+TitleStyle ActiveDown Solid SteelBlue4 -- flat
+TitleStyle Inactive Solid SteelBlue4 -- flat
+
+# The Second Variation of TitleStyle:
+# TitleStyle LeftJustified height 22
+
+# Button Styles
+ButtonStyle All -- UseTitleStyle flat
 
 AddtoFunc StartFunction
 + I Exec exec fcitx -d
++ I Exec exec urxvtcd -q -f
++ I Exec exec xrandr --output VGA-0 --mode 1280x1024 --pos 1280x0 --rotate normal --output DVI-I-1 --mode 1280x1024 --pos 0x0 --rotate normal --output DVI-I-0 --off
++ I Exec exec xscreensaver -no-splash
++ I Exec exec xautolock -locker xscreensaver-command -lock -time 30
 ## + I Exec exec pasystray
 #
